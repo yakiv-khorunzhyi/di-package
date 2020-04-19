@@ -2,7 +2,7 @@
 ## Installation
 Install the latest version with:
 ```
-$ composer require yakov/di-container
+$ composer require yakiv-khorunzhyi/di-container
 ```
 
 ## Examples
