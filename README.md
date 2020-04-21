@@ -33,3 +33,6 @@ Using this entry automatically resolves the dependencies:
 ```
 $container->get(SomeClass::class);
 ```
+
+## License
+MIT license.
