@@ -2,8 +2,6 @@
 
 namespace tests\TestClasses;
 
-require_once(__DIR__ . '/B.php');
-
 class A
 {
     protected $b;

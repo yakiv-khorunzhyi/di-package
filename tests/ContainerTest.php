@@ -8,8 +8,6 @@ use tests\TestClasses\B;
 use tests\TestClasses\SomeClass;
 use Y\DI\Container;
 
-require_once(__DIR__ . '/TestClasses/SomeClass.php');
-
 /**
  * Class ContainerTest
  */
