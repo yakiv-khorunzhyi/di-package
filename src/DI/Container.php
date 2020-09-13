@@ -1,4 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * @author       Yakiv Khorunzhyi
+ * @copyright    2020
+ * @license      MIT
+ */
+
+declare(strict_types=1);
 
 namespace Y\DI;
 
@@ -8,7 +16,7 @@ namespace Y\DI;
  */
 class Container implements IContainer
 {
-    use ReflectionResolver;
+    use ObjectResolver;
 
     /**
      * @var array
@@ -43,7 +51,7 @@ class Container implements IContainer
      * @return object|null
      * @throws \ReflectionException
      */
-    public function get($id)
+    public function get($id): ?object
     {
         if (isset($this->instances[$id])) {
             return $this->instances[$id];
@@ -56,13 +64,13 @@ class Container implements IContainer
             return ($this->instances[$id] = $closure());
         }
 
-        return ($this->instances[$id] = $this->reflectionResolve($id));
+        return ($this->instances[$id] = $this->resolve($id));
     }
 
     /**
      * Associate a closure with an id in container.
      *
-     * @param $id
+     * @param          $id
      * @param \Closure $closure
      *
      * @return $this
@@ -91,7 +99,7 @@ class Container implements IContainer
     /**
      * Add object to container.
      *
-     * @param $id
+     * @param          $id
      * @param \Closure $closure
      *
      * @return $this
@@ -124,7 +132,7 @@ class Container implements IContainer
     public function clear(): Container
     {
         $this->instances = [];
-        $this->params = [];
+        $this->params    = [];
 
         return $this;
     }

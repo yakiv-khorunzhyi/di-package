@@ -1,17 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace tests;
 
-use PHPUnit\Framework\TestCase;
 use tests\TestClasses\A;
 use tests\TestClasses\B;
 use tests\TestClasses\SomeClass;
-use Y\DI\Container;
 
-/**
- * Class ContainerTest
- */
-class ContainerTest extends TestCase
+class ContainerTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \Y\DI\Container */
     protected static $container;
@@ -66,9 +63,9 @@ class ContainerTest extends TestCase
         $someClass = self::$container->get(SomeClass::class);
 
         $this->assertInstanceOf(SomeClass::class, $someClass);
-        $this->assertEmpty($this->getContainerProperties(Container::class, 'params'));
+        $this->assertEmpty($this->getContainerProperties(\Y\DI\Container::class, 'params'));
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
         $this->assertArrayHasKey(SomeClass::class, $instances);
 
         // getting dependency with preliminary binding
@@ -79,14 +76,14 @@ class ContainerTest extends TestCase
         $classA = self::$container->get('A');
         $this->assertInstanceOf(SomeClass::class, $classA);
 
-        $params = $this->getContainerProperties(Container::class, 'params');
+        $params = $this->getContainerProperties(\Y\DI\Container::class, 'params');
         $this->assertEmpty($params);
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
         $this->assertArrayHasKey('A', $instances);
 
-        $classA = self::$container->get('A');
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $classA    = self::$container->get('A');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
 
         $this->assertSame(2, sizeof($instances));
 
@@ -95,12 +92,12 @@ class ContainerTest extends TestCase
             return new SomeClass(new A(new B(1, 'str')));
         });
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
 
         $this->assertSame(3, sizeof($instances));
         $this->arrayHasKey('B', $instances);
 
-        $params = $this->getContainerProperties(Container::class, 'params');
+        $params = $this->getContainerProperties(\Y\DI\Container::class, 'params');
         $this->assertEmpty($params);
 
         self::$container->clear();
@@ -112,7 +109,7 @@ class ContainerTest extends TestCase
             return new SomeClass(new A(new B(1, '3')));
         });
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
 
         $this->assertSame(1, sizeof($instances));
         $this->assertArrayHasKey('SomeClass', $instances);
@@ -128,7 +125,7 @@ class ContainerTest extends TestCase
 
         self::$container->remove('SomeClass');
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
 
         $this->assertEmpty($instances);
         $this->assertArrayNotHasKey('SomeClass', $instances);
@@ -148,8 +145,8 @@ class ContainerTest extends TestCase
 
         self::$container->clear();
 
-        $instances = $this->getContainerProperties(Container::class, 'instances');
-        $params = $this->getContainerProperties(Container::class, 'params');
+        $instances = $this->getContainerProperties(\Y\DI\Container::class, 'instances');
+        $params    = $this->getContainerProperties(\Y\DI\Container::class, 'params');
 
         $this->assertEmpty($instances);
         $this->assertEmpty($params);

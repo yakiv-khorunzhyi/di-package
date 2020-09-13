@@ -1,8 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+/**
+ * @author       Yakiv Khorunzhyi
+ * @copyright    2020
+ * @license      MIT
+ */
+
+declare(strict_types=1);
 
 namespace Y\DI;
 
-trait ReflectionResolver
+trait ObjectResolver
 {
     /**
      * If there are no parameters in the dependencies or default parameters are set,
@@ -13,7 +21,7 @@ trait ReflectionResolver
      * @return object
      * @throws \ReflectionException
      */
-    private function reflectionResolve(string $class)
+    private function resolve(string $class)
     {
         $reflector = new \ReflectionClass($class);
 
@@ -48,7 +56,7 @@ trait ReflectionResolver
             $dependency = $param->getClass();
 
             if (!is_null($dependency)) {
-                $dependencies[] = $this->reflectionResolve($dependency->name);
+                $dependencies[] = $this->resolve($dependency->name);
                 continue;
             }
 

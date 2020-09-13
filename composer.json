@@ -1,6 +1,7 @@
 {
-    "name": "yakiv-khorunzhyi/di-container",
+    "name": "yakiv-khorunzhyi/di-package",
     "type": "library",
+    "version": "1",
     "license": "MIT",
     "authors": [
         {
@@ -8,7 +9,7 @@
             "email": "yakiv.khorunzhyi@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.2"
     },
